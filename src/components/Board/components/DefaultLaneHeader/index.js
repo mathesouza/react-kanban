@@ -7,7 +7,7 @@ const LaneHeaderSkeleton = styled.div`
   font-weight: bold;
   display: flex;
   justify-content: space-between;
-
+  flex-direction: column;
   span:nth-child(2) {
     cursor: pointer;
   }
@@ -30,6 +30,19 @@ const Input = styled.input`
     outline: none;
   }
 `
+const AddCardButton = styled.button`
+  width: 100%;
+  margin-top: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  :hover {
+    transition: 0.3s;
+    background-color: #ccc;
+  }
+  //
+`
 
 function LaneTitle({ allowRenameLane, onClick, children: title }) {
   return allowRenameLane ? <CursorPointer onClick={onClick}>{title}</CursorPointer> : <span>{title}</span>
@@ -49,6 +62,7 @@ export default function({ children: lane, allowRemoveLane, onLaneRemove, allowRe
   const [renameMode, toggleRenameMode] = useRenameMode(false)
   const [title, setTitle] = useState(lane.title)
   const [titleInput, setTitleInput] = useState('')
+  const [addingCard, setAddingCard] = useState(false)
 
   function handleRenameLane(event) {
     event.preventDefault()
@@ -87,7 +101,13 @@ export default function({ children: lane, allowRemoveLane, onLaneRemove, allowRe
           <LaneTitle allowRenameLane={allowRenameLane} onClick={handleRenameMode}>
             {title}
           </LaneTitle>
-          {allowRemoveLane && <span onClick={() => onLaneRemove(lane)}>×</span>}
+          <AddCardButton onClick={() => setAddingCard(!addingCard)}>➕</AddCardButton>
+          {addingCard && (
+            <form style={{ width: '100%' }}>
+              <input type='text' />
+              <button type='submit'>Salvar</button>
+            </form>
+          )}
         </>
       )}
     </LaneHeaderSkeleton>
