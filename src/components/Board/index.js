@@ -130,7 +130,8 @@ function UncontrolledBoard({
           renderLaneHeader(lane, {
             removeLane: handleLaneRemove.bind(null, lane),
             renameLane: handleLaneRename.bind(null, lane),
-            addCard: handleCardAdd.bind(null, lane)
+            addCard: handleCardAdd.bind(null, lane),
+            aaaa: 'aa'
           })
       })}
       renderCard={(lane, card, dragging) => {
@@ -151,6 +152,7 @@ function UncontrolledBoard({
       onLaneRename={handleLaneRename}
       disableLaneDrag={disableLaneDrag}
       disableCardDrag={disableCardDrag}
+      onCardAdd={handleCardAdd}
     >
       {board}
     </BoardContainer>
@@ -226,7 +228,8 @@ function BoardContainer({
   allowRenameLane,
   onLaneRename,
   onLaneDragEnd,
-  onCardDragEnd
+  onCardDragEnd,
+  onCardAdd
 }) {
   function handleOnDragEnd(event) {
     const coordinates = getCoordinates(event)
@@ -253,6 +256,7 @@ function BoardContainer({
                     onLaneRemove={onLaneRemove}
                     allowRenameLane={allowRenameLane}
                     onLaneRename={onLaneRename}
+                    onCardAdd={onCardAdd}
                   >
                     {lane}
                   </DefaultLaneHeader>

@@ -58,11 +58,16 @@ function useRenameMode(state) {
   return [renameMode, toggleRenameMode]
 }
 
-export default function({ children: lane, allowRemoveLane, onLaneRemove, allowRenameLane, onLaneRename }) {
+export default function({ children: lane, allowRemoveLane, onLaneRemove, allowRenameLane, onLaneRename, onCardAdd }) {
   const [renameMode, toggleRenameMode] = useRenameMode(false)
   const [title, setTitle] = useState(lane.title)
   const [titleInput, setTitleInput] = useState('')
   const [addingCard, setAddingCard] = useState(false)
+
+  function handleCardAdd(event) {
+    event.preventDefault()
+    onCardAdd(lane, { id: 4, title: 'Card adicionado', description: 'Testando' })
+  }
 
   function handleRenameLane(event) {
     event.preventDefault()
@@ -103,7 +108,7 @@ export default function({ children: lane, allowRemoveLane, onLaneRemove, allowRe
           </LaneTitle>
           <AddCardButton onClick={() => setAddingCard(!addingCard)}>➕</AddCardButton>
           {addingCard && (
-            <form style={{ width: '100%' }}>
+            <form onSubmit={handleCardAdd} style={{ width: '100%' }}>
               <input type='text' />
               <button type='submit'>Salvar</button>
             </form>

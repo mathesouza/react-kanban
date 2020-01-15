@@ -80,6 +80,7 @@ render(
     onLaneNew={console.log}
     onLaneRename={console.log}
     addCard
+    onCardNew={console.log}
   />,
   document.getElementById('app')
 )
